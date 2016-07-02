@@ -305,7 +305,8 @@ public class BintrayImpl implements Bintray {
             //Underlying IOException form the client
             String underlyingCause = (ioe.getCause() == null) ? "" : ioe.toString() + " : " + ioe.getCause().getMessage();
             log.debug("{}", ioe.getMessage(), ioe);
-            throw new BintrayCallException(400, ioe.getMessage(), underlyingCause);
+            String errorMsg = (underlyingCause != "") ? underlyingCause : ioe.getMessage();
+            throw new BintrayCallException(400, ioe.getMessage(), errorMsg);
         }
     }
 
